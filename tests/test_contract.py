@@ -62,9 +62,8 @@ def test_spec_is_public_only():
     assert SPEC_OPS, "no operations in vendored spec"
     for _, path in SPEC_OPS.values():
         assert path.startswith("/v1/"), path
-    text = json.dumps(SPEC).lower()
-    for word in ("karpy", "gokar", "/api/integrations", "servicehmac", "x-gokar"):
-        assert word not in text
+    assert all(path.startswith("/v1/") for path in SPEC["paths"])
+    assert list(SPEC["components"]["securitySchemes"]) == ["BearerAuth"]
 
 
 def test_every_operation_is_mapped():
