@@ -1,0 +1,524 @@
+{
+  "_comment": "Mock responses replayed by the SDK test servers. Bodies follow the public OpenAPI schemas (openapi.public.json) and the documented examples. Keyed by public operationId.",
+  "operations": {
+    "get-api-key": {
+      "method": "GET",
+      "path": "/v1/whoami",
+      "status": 200,
+      "body": {
+        "application_reference": "app_7d2c91",
+        "environment": "sandbox",
+        "scopes": [
+          "collection:read",
+          "collection:create"
+        ],
+        "credential_prefix": "tp_test_00000000000000000000000000000000"
+      }
+    },
+    "get-capabilities": {
+      "method": "GET",
+      "path": "/v1/capabilities",
+      "status": 200,
+      "body": {
+        "api_version": "2026-10-18",
+        "environment": "live",
+        "release_stage": "owned_collections",
+        "features": {
+          "integration_read": true,
+          "collection_read": true,
+          "disbursement_read": true,
+          "collection_create": true,
+          "disbursement_create": false,
+          "payments": true,
+          "checkout_sessions": true,
+          "payment_links": false,
+          "payment_pages": false,
+          "invoice_payments": false,
+          "payouts": false,
+          "beneficiaries": false,
+          "balances": false,
+          "refunds": false,
+          "webhook_endpoints": false,
+          "control_number_read": true,
+          "control_number_create": false,
+          "checkout_session_read": true
+        },
+        "supported_countries": [
+          "TZ"
+        ],
+        "supported_currencies": [
+          "TZS"
+        ]
+      }
+    },
+    "create-collection": {
+      "method": "POST",
+      "path": "/v1/collections",
+      "status": 202,
+      "body": {
+        "id": "pay_6b1f0c2d",
+        "public_reference": "TP8K2M4QZ1",
+        "operation": "charge",
+        "status": "pending",
+        "money": {
+          "amount_minor": 500000,
+          "currency": "TZS"
+        },
+        "created_at": "2026-10-28T10:00:00Z",
+        "updated_at": "2026-10-28T10:00:01Z"
+      }
+    },
+    "list-collections": {
+      "method": "GET",
+      "path": "/v1/collections",
+      "status": 200,
+      "body": {
+        "items": [
+          {
+            "id": "pay_6b1f0c2d",
+            "public_reference": "TP8K2M4QZ1",
+            "operation": "charge",
+            "status": "succeeded",
+            "money": {
+              "amount_minor": 500000,
+              "currency": "TZS"
+            },
+            "fee": {
+              "amount_minor": 10000,
+              "currency": "TZS"
+            },
+            "net": {
+              "amount_minor": 490000,
+              "currency": "TZS"
+            },
+            "customer_name": "Asha Juma",
+            "customer_phone": "+255712345678",
+            "method": "mobile_money",
+            "created_at": "2026-10-28T10:00:00Z",
+            "updated_at": "2026-10-28T10:00:40Z"
+          }
+        ],
+        "next_cursor": null
+      }
+    },
+    "get-collection": {
+      "method": "GET",
+      "path": "/v1/collections/{reference}",
+      "status": 200,
+      "body": {
+        "id": "pay_6b1f0c2d",
+        "public_reference": "TP8K2M4QZ1",
+        "operation": "charge",
+        "status": "succeeded",
+        "money": {
+          "amount_minor": 500000,
+          "currency": "TZS"
+        },
+        "fee": {
+          "amount_minor": 10000,
+          "currency": "TZS"
+        },
+        "net": {
+          "amount_minor": 490000,
+          "currency": "TZS"
+        },
+        "created_at": "2026-10-28T10:00:00Z",
+        "updated_at": "2026-10-28T10:00:40Z"
+      }
+    },
+    "create-payout-quote": {
+      "method": "POST",
+      "path": "/v1/disbursements/quote",
+      "status": 200,
+      "body": {
+        "id": "q_4f2c8a1b",
+        "expires_at": "2026-10-28T10:02:00Z",
+        "currency": "TZS",
+        "amount_minor": "2500000",
+        "merchant_fee_minor": "50000",
+        "provider_fee_minor": "30000",
+        "total_minor": "2550000"
+      }
+    },
+    "create-payout": {
+      "method": "POST",
+      "path": "/v1/disbursements",
+      "status": 200,
+      "body": {
+        "id": "pyt_91ab33",
+        "public_reference": "TPPO7Q2X9D",
+        "status": "processing",
+        "money": {
+          "amount_minor": 2500000,
+          "currency": "TZS"
+        },
+        "fee_minor": "50000",
+        "total_minor": "2550000",
+        "created_at": "2026-10-28T10:01:00Z",
+        "updated_at": "2026-10-28T10:01:00Z",
+        "destination": {
+          "channel": "mobile",
+          "name": "Juma Ali",
+          "phone_last4": "5678",
+          "bank": "",
+          "account_last4": ""
+        }
+      }
+    },
+    "list-payouts": {
+      "method": "GET",
+      "path": "/v1/disbursements",
+      "status": 200,
+      "body": {
+        "items": [
+          {
+            "id": "pyt_91ab33",
+            "public_reference": "TPPO7Q2X9D",
+            "operation": "payout",
+            "status": "succeeded",
+            "money": {
+              "amount_minor": 2500000,
+              "currency": "TZS"
+            },
+            "fee": {
+              "amount_minor": 50000,
+              "currency": "TZS"
+            },
+            "created_at": "2026-10-28T10:01:00Z",
+            "updated_at": "2026-10-28T10:01:30Z"
+          }
+        ],
+        "next_cursor": null
+      }
+    },
+    "get-payout": {
+      "method": "GET",
+      "path": "/v1/disbursements/{reference}",
+      "status": 200,
+      "body": {
+        "id": "pyt_91ab33",
+        "public_reference": "TPPO7Q2X9D",
+        "operation": "payout",
+        "status": "succeeded",
+        "money": {
+          "amount_minor": 2500000,
+          "currency": "TZS"
+        },
+        "fee": {
+          "amount_minor": 50000,
+          "currency": "TZS"
+        },
+        "created_at": "2026-10-28T10:01:00Z",
+        "updated_at": "2026-10-28T10:01:30Z"
+      }
+    },
+    "create-control-number": {
+      "method": "POST",
+      "path": "/v1/control-numbers",
+      "status": 201,
+      "body": {
+        "id": "22222222-2222-4222-8222-222222222222",
+        "object": "control_number",
+        "status": "issued",
+        "number": "991234567890",
+        "currency": "TZS"
+      }
+    },
+    "list-control-numbers": {
+      "method": "GET",
+      "path": "/v1/control-numbers",
+      "status": 200,
+      "body": {
+        "object": "list",
+        "data": [
+          {
+            "id": "22222222-2222-4222-8222-222222222222",
+            "object": "control_number",
+            "number": "991234567890",
+            "kind": "bill",
+            "currency": "TZS",
+            "amount_minor": "5000000",
+            "collected_minor": "2000000",
+            "remaining_minor": "3000000",
+            "status": "active",
+            "payment_count": 1,
+            "created_at": "2026-10-20T08:00:00Z"
+          }
+        ],
+        "next_cursor": null,
+        "can_create": true
+      }
+    },
+    "get-control-number": {
+      "method": "GET",
+      "path": "/v1/control-numbers/{id}",
+      "status": 200,
+      "body": {
+        "id": "22222222-2222-4222-8222-222222222222",
+        "object": "control_number",
+        "number": "991234567890",
+        "kind": "bill",
+        "currency": "TZS",
+        "amount_minor": "5000000",
+        "collected_minor": "2000000",
+        "remaining_minor": "3000000",
+        "status": "active",
+        "payment_count": 2,
+        "created_at": "2026-10-20T08:00:00Z",
+        "payments": [
+          {
+            "id": "6f0c1d2e-0000-4000-8000-000000000001",
+            "status": "verified",
+            "received_at": "2026-10-28T09:12:03Z",
+            "reference": "TP-1",
+            "amount_minor": "2000000",
+            "fee_minor": "40000",
+            "paid_at": "2026-10-28T09:12:00Z"
+          },
+          {
+            "id": "a91d2e3f-0000-4000-8000-000000000002",
+            "status": "pending_verification",
+            "received_at": "2026-10-28T11:40:10Z"
+          }
+        ]
+      }
+    },
+    "create-checkout-session": {
+      "method": "POST",
+      "path": "/v1/checkout-sessions",
+      "status": 201,
+      "body": {
+        "id": "7c0e5d2a-1b3f-4c8e-9a6d-2f4b8e1c0d9a",
+        "object": "checkout_session",
+        "status": "open",
+        "title": "Order 1001",
+        "description": "2 x Coffee bag",
+        "currency": "TZS",
+        "amount_minor": "500000",
+        "checkout_url": "https://pay.teepay.me/c/7c0e5d2a-1b3f-4c8e-9a6d-2f4b8e1c0d9a",
+        "payment_profile_id": null,
+        "reference": "order-1001",
+        "metadata": {
+          "cart": "c-77"
+        },
+        "payment": null,
+        "environment": "live",
+        "created_at": "2026-10-28T10:00:00Z",
+        "expires_at": "2026-10-29T10:00:00Z"
+      }
+    },
+    "list-checkout-sessions": {
+      "method": "GET",
+      "path": "/v1/checkout-sessions",
+      "status": 200,
+      "body": {
+        "object": "list",
+        "items": [
+          {
+            "id": "7c0e5d2a-1b3f-4c8e-9a6d-2f4b8e1c0d9a",
+            "object": "checkout_session",
+            "status": "paid",
+            "title": "Order 1001",
+            "description": "2 x Coffee bag",
+            "currency": "TZS",
+            "amount_minor": "500000",
+            "checkout_url": "https://pay.teepay.me/c/7c0e5d2a-1b3f-4c8e-9a6d-2f4b8e1c0d9a",
+            "payment_profile_id": null,
+            "reference": "order-1001",
+            "metadata": {
+              "cart": "c-77"
+            },
+            "payment": {
+              "reference": "TP8K2M4QZ1"
+            },
+            "environment": "live",
+            "created_at": "2026-10-28T10:00:00Z",
+            "expires_at": "2026-10-29T10:00:00Z"
+          }
+        ],
+        "next_cursor": null
+      }
+    },
+    "get-checkout-session": {
+      "method": "GET",
+      "path": "/v1/checkout-sessions/{id}",
+      "status": 200,
+      "body": {
+        "id": "7c0e5d2a-1b3f-4c8e-9a6d-2f4b8e1c0d9a",
+        "object": "checkout_session",
+        "status": "paid",
+        "title": "Order 1001",
+        "description": "2 x Coffee bag",
+        "currency": "TZS",
+        "amount_minor": "500000",
+        "checkout_url": "https://pay.teepay.me/c/7c0e5d2a-1b3f-4c8e-9a6d-2f4b8e1c0d9a",
+        "payment_profile_id": null,
+        "reference": "order-1001",
+        "metadata": {
+          "cart": "c-77"
+        },
+        "payment": {
+          "reference": "TP8K2M4QZ1"
+        },
+        "environment": "live",
+        "created_at": "2026-10-28T10:00:00Z",
+        "expires_at": "2026-10-29T10:00:00Z"
+      }
+    }
+  },
+  "errors": {
+    "invalid_credential": {
+      "status": 401,
+      "headers": {
+        "WWW-Authenticate": "Bearer",
+        "X-Request-ID": "req_401"
+      },
+      "body": {
+        "error": {
+          "code": "invalid_credential",
+          "message": "A valid API credential is required.",
+          "request_id": "req_401"
+        }
+      }
+    },
+    "scope_denied": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "scope_denied",
+          "message": "Your API key does not have permission for this action.",
+          "request_id": "req_403a"
+        }
+      }
+    },
+    "access_denied": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "access_denied",
+          "message": "You do not have access to this resource.",
+          "request_id": "req_403b"
+        }
+      }
+    },
+    "account_restricted": {
+      "status": 403,
+      "body": {
+        "error": {
+          "code": "account_restricted",
+          "message": "This account is restricted. Contact TeePay support.",
+          "request_id": "req_403c"
+        }
+      }
+    },
+    "not_found": {
+      "status": 404,
+      "body": {
+        "error": {
+          "code": "not_found",
+          "message": "The requested resource could not be found.",
+          "request_id": "req_404"
+        }
+      }
+    },
+    "idempotency_conflict": {
+      "status": 409,
+      "body": {
+        "error": {
+          "code": "idempotency_conflict",
+          "message": "This idempotency key was already used for a different request.",
+          "request_id": "req_409"
+        }
+      }
+    },
+    "invalid_request": {
+      "status": 422,
+      "body": {
+        "error": {
+          "code": "invalid_request",
+          "message": "The request is invalid. Check the fields and query parameters.",
+          "request_id": "req_422"
+        }
+      }
+    },
+    "unsupported_market": {
+      "status": 422,
+      "body": {
+        "error": {
+          "code": "unsupported_market",
+          "message": "This country and currency are not enabled for this account. Check supported_countries and supported_currencies in /v1/capabilities.",
+          "request_id": "req_422m"
+        }
+      }
+    },
+    "rate_limited": {
+      "status": 429,
+      "headers": {
+        "Retry-After": "1",
+        "RateLimit-Limit": "120",
+        "RateLimit-Remaining": "0",
+        "RateLimit-Reset": "1"
+      },
+      "body": {
+        "error": {
+          "code": "rate_limited",
+          "message": "Too many requests. Wait for the Retry-After delay before trying again.",
+          "request_id": "req_429"
+        }
+      }
+    },
+    "internal_error": {
+      "status": 500,
+      "body": {
+        "error": {
+          "code": "internal_error",
+          "message": "An unexpected error occurred. Contact support with the request ID.",
+          "request_id": "req_500"
+        }
+      }
+    },
+    "unavailable": {
+      "status": 503,
+      "headers": {
+        "Retry-After": "0"
+      },
+      "body": {
+        "error": {
+          "code": "unavailable",
+          "message": "The service is temporarily unavailable. Please try again shortly.",
+          "request_id": "req_503"
+        }
+      }
+    },
+    "payout_code_only": {
+      "status": 409,
+      "body": {
+        "error": {
+          "code": "payout_quote_expired_or_changed"
+        }
+      }
+    },
+    "payout_string_error": {
+      "status": 422,
+      "body": {
+        "error": "invalid_request"
+      }
+    },
+    "funds_under_review": {
+      "status": 422,
+      "body": {
+        "error": {
+          "code": "funds_under_review",
+          "message": "Some of your balance is under review."
+        }
+      }
+    }
+  },
+  "webhook": {
+    "secret": "whsec_test_only_not_a_real_secret_0000000000",
+    "timestamp": 1761645605,
+    "body": "{\"created_at\":\"2026-10-28T10:00:05.123456Z\",\"data\":{\"money\":{\"amount_minor\":\"500000\",\"currency\":\"TZS\"},\"occurred_at\":\"2026-10-28T10:00:03Z\",\"reference\":\"TP8K2M4QZ1\",\"source\":{\"id\":\"7c0e5d2a-1b3f-4c8e-9a6d-2f4b8e1c0d9a\",\"type\":\"checkout_session\"},\"status\":\"completed\",\"transaction_id\":\"pay_6b1f0c2d\"},\"environment\":\"live\",\"event\":\"payment.completed\",\"id\":\"0f8d7c2e-5b1a-5e3f-9c4d-7a6b2e1f0c9d\"}",
+    "signature_comment": "X-TeePay-Signature = 'v1=' + hex(HMAC_SHA256(key=secret UTF-8 bytes, msg=str(timestamp) + '.' + raw body bytes)). Computed value in 'signature'.",
+    "signature": "v1=b7758aa52bad9d8f817e7c40e3796f512c238290f8166f09ed725787dbfde1c8"
+  }
+}
